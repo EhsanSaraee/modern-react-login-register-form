@@ -1,8 +1,12 @@
 import styled from 'styled-components';
-import './App.css';
+import AccountBox from './components/accountBox';
 
 const App = () => {
-   return <AppContainer>hello world</AppContainer>;
+   return (
+      <AppContainer>
+         <AccountBox />
+      </AppContainer>
+   );
 };
 
 const AppContainer = styled.div`
