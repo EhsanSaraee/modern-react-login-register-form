@@ -1,5 +1,6 @@
 import { Marginer } from '../marginer';
 import {
+  BoldLink,
    BoxContainer,
    FormContainer,
    Input,
@@ -13,11 +14,13 @@ const LoginForm = () => {
          <FormContainer>
             <Input type="email" placeholder="Email" />
             <Input type="password" placeholder="Password" />
-            <Marginer direction="vertical" margin={5} />
-            <MutedLink href="#">Forget your password</MutedLink>
-            <Marginer direction="vertical" margin="1em" />
-            <SubmitButton type="submit">Sign In</SubmitButton>
          </FormContainer>
+         <Marginer direction="vertical" margin={10} />
+         <MutedLink href="#">Forget your password?</MutedLink>
+         <Marginer direction="vertical" margin="1.5em" />
+         <SubmitButton type="submit">Login</SubmitButton>
+         <Marginer direction="vertical" margin="1em" />
+         <MutedLink href='#'>Don't have an account? <BoldLink>Sign Up</BoldLink></MutedLink>
       </BoxContainer>
    );
 };

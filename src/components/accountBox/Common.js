@@ -12,6 +12,7 @@ export const FormContainer = styled.form`
    width: 100%;
    display: flex;
    flex-direction: column;
+   box-shadow: 0 0 2.5px rgba(15, 15, 15, 0.2);
 `;
 
 const TextLink = css`
@@ -37,6 +38,8 @@ export const Input = styled.input`
    border: 1px solid rgba(200, 200, 200, 0.03);
    padding: 0px 10px;
    border-bottom: 1.5px solid transparent;
+   transition: all 0.2s ease-in-out;
+   font-size: 13px;
 
    &::placeholder {
       color: rgba(200, 200, 200, 1);
@@ -61,7 +64,7 @@ export const SubmitButton = styled.button`
    border: none;
    border-radius: 100px;
    cursor: pointer;
-   transition: all 0.25 ease-in-out;
+   transition: all 0.25s ease-in-out;
    background: rgb(241, 196, 15);
    background: linear-gradient(
       58deg,
