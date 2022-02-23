@@ -29,6 +29,7 @@ export const MutedLink = styled.a`
 export const BoldLink = styled.a`
    ${TextLink}
    color: rgb(241, 196, 15);
+   margin: 0 4px;
 `;
 
 export const Input = styled.input`

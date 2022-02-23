@@ -1,21 +1,89 @@
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { AccountContext } from './accountContext';
 import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
+
+const backdropVariants = {
+   expanded: {
+      width: '233%',
+      height: '1050px',
+      borderRadius: '20%',
+      transform: 'rotate(60deg)',
+   },
+   collapsed: {
+      width: '160%',
+      height: '550px',
+      borderRadius: '50%',
+      transform: 'rotate(60deg)',
+   },
+};
+
+const expandingTransition = {
+   type: 'spring',
+   duration: 2.3,
+   stiffness: 30,
+};
 
 const AccountBox = () => {
+   const [isExpanded, setIsExpanded] = useState(false);
+   const [active, setActive] = useState('signIn');
+
+   const playExpandingAnimation = () => {
+      setIsExpanded(true);
+      setTimeout(() => {
+         setIsExpanded(false);
+      }, expandingTransition.duration * 1000 - 1500);
+   };
+
+   const switchToSignUp = () => {
+      playExpandingAnimation();
+      setTimeout(() => {
+         setActive('signUp');
+      }, 500);
+   };
+
+   const switchToSignIn = () => {
+      playExpandingAnimation();
+      setTimeout(() => {
+         setActive('signIn');
+      }, 500);
+   };
+
+   const contextValue = { switchToSignIn, switchToSignUp };
+
    return (
-      <BoxContainer>
-         <TopContainer>
-            <BackDrop />
-            <HeaderContainer>
-               <HeaderText>Welcome</HeaderText>
-               <HeaderText>Back</HeaderText>
-               <SmallText>Please sign in to Continue</SmallText>
-            </HeaderContainer>
-         </TopContainer>
-         <InnerContainer>
-            <LoginForm />
-         </InnerContainer>
-      </BoxContainer>
+      <AccountContext.Provider value={contextValue}>
+         <BoxContainer>
+            <TopContainer>
+               <BackDrop
+                  initial={false}
+                  animate={isExpanded ? 'expanded' : 'collapsed'}
+                  variants={backdropVariants}
+                  transition={expandingTransition}
+               />
+               {active === 'signIn' && (
+                  <HeaderContainer>
+                     <HeaderText>Welcome</HeaderText>
+                     <HeaderText>Back</HeaderText>
+                     <SmallText>Please Sign In to Continue</SmallText>
+                  </HeaderContainer>
+               )}
+               {active === 'signUp' && (
+                  <HeaderContainer>
+                     <HeaderText>Create</HeaderText>
+                     <HeaderText>Account</HeaderText>
+                     <SmallText>Please Sign Up to Continue</SmallText>
+                  </HeaderContainer>
+               )}
+            </TopContainer>
+            <InnerContainer>
+               {active === 'signIn' && <LoginForm />}
+               {active === 'signUp' && <SignUpForm />}
+            </InnerContainer>
+         </BoxContainer>
+      </AccountContext.Provider>
    );
 };
 
@@ -41,7 +109,7 @@ const TopContainer = styled.div`
    padding-bottom: 5em;
 `;
 
-const BackDrop = styled.div`
+const BackDrop = styled(motion.div)`
    width: 160%;
    height: 550px;
    position: absolute;
